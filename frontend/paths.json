@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+      "baseUrl": "./",
+      "paths": {
+        "@components/*": ["../components/*"],
+        "@common/*": ["../common/*"],
+        "@hooks*": ["../../common/hooks*"],
+        "@models/*": ["../models/*"],
+        "@constants/*": ["../constants/*"],
+        "@navigtor/*": ["../navigtor/*"],
+        "@screens/*": ["../screens/*"],
+      }
+    }
+  }
+
+
