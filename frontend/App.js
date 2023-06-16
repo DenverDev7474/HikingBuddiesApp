@@ -2,9 +2,9 @@ import * as React from 'react';
 import { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import HikeNavigator from './navigator/HikeNavigator'
-import CalendarNavigator from './navigator/CalendarNavigator'
-import InfoNavigator from './navigator/InfoNavigator'
+// import HikeNavigator from './navigator/HikeNavigator'
+// import CalendarNavigator from './navigator/CalendarNavigator'
+// import InfoNavigator from './navigator/InfoNavigator'
 
 import { Provider } from 'react-redux'
 import { store } from './common/store/store'
@@ -19,12 +19,7 @@ import LoginScreen from './screens/Login/LoginScreen';
 import SignupScreen from './screens/Login/SignupScreen';
 import WelcomeScreen from './screens/Login/WelcomeScreen';
 
-
-
-const Tab = createMaterialBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-
-
 
 function AuthStack() {
   return (
@@ -41,19 +36,13 @@ function AuthStack() {
   );
 }
 
-function Navigation() {
+function MainScreen() {
   return (
-    <NavigationContainer>
-      <AuthStack />
-      <TabNavigator />
-    </NavigationContainer>
+    <TabNavigator />
   );
 }
 
-
 export default function App() {
-
-
   const [fontLoaded, setFontLoaded] = useState(false)
 
   const fetchFonts = async () => {
@@ -65,28 +54,27 @@ export default function App() {
     });
   };
 
-
   if (!fontLoaded){
-  return (
-        <AppLoading
-          startAsync={fetchFonts}
-          onFinish={() => setFontLoaded(true)}
-          onError={console.warn}
-        /> 
+    return (
+      <AppLoading
+        startAsync={fetchFonts}
+        onFinish={() => setFontLoaded(true)}
+        onError={console.warn}
+      /> 
     );
   }
        
-
-
   return (
-      <Provider store={store}>
-        <NavigationContainer>
-          {/* <AuthStack /> */}
-        </NavigationContainer>
-      </Provider>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          {/* <Stack.Screen name="Auth" component={AuthStack} />  */}
+          <Stack.Screen name="Main" component={MainScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
