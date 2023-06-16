@@ -58,6 +58,29 @@ export default function HikeNavigator() {
           }}
         />
       </Stack.Group>
+      <Stack.Group>
+        <Stack.Screen
+          name="AddNewHike"
+          component={AddNewHikeModal}
+          options={{
+            header: (props) => (
+              <View
+                style={{
+                  height: 130,
+                  backgroundColor: "#CCE1EF",
+                  display: "flex",
+                }}
+              >
+                <View style={styles.buttonContainerSmall}>
+                  <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Text style={styles.buttonText}>Back</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ),
+          }}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   );
 }
