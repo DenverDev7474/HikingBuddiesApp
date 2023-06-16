@@ -6,7 +6,6 @@ import HikeNavigator from './navigator/HikeNavigator'
 import CalendarNavigator from './navigator/CalendarNavigator'
 import InfoNavigator from './navigator/InfoNavigator'
 
-
 import { Provider } from 'react-redux'
 import { store } from './common/store/store'
 import { StyleSheet, Text, View } from 'react-native'; 
@@ -15,9 +14,7 @@ import AppLoading from 'expo-app-loading';
 import TabNavigator from './navigator/TabNavigator';
 
 
-
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-// import { StatusBar } from 'expo-status-bar';
 import LoginScreen from './screens/Login/LoginScreen';
 import SignupScreen from './screens/Login/SignupScreen';
 import WelcomeScreen from './screens/Login/WelcomeScreen';
@@ -48,25 +45,8 @@ function Navigation() {
   return (
     <NavigationContainer>
       <AuthStack />
-    </NavigationContainer>
-  );
-}
-
-
-
-
-function AuthenticatedStack() {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerStyle: { backgroundColor: '#c30b64' },
-        headerTintColor: 'white',
-        contentStyle: { backgroundColor:  '#f9beda' },
-      }}
-    >
-      <Stack.Screen name="Welcome" component={WelcomeScreen} />
       <TabNavigator />
-    </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
@@ -101,8 +81,7 @@ export default function App() {
   return (
       <Provider store={store}>
         <NavigationContainer>
-          <AuthStack />
-          {/* <HikeNavigator /> */}
+          {/* <AuthStack /> */}
         </NavigationContainer>
       </Provider>
   );
