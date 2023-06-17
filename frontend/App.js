@@ -2,9 +2,9 @@ import * as React from 'react';
 import { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-// import HikeNavigator from './navigator/HikeNavigator'
-// import CalendarNavigator from './navigator/CalendarNavigator'
-// import InfoNavigator from './navigator/InfoNavigator'
+import HikeNavigator from './navigator/HikeNavigator'
+import CalendarNavigator from './navigator/CalendarNavigator'
+import InfoNavigator from './navigator/InfoNavigator'
 
 import { Provider } from 'react-redux'
 import { store } from './common/store/store'
