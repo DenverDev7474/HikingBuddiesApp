@@ -16,47 +16,40 @@ exports.getUserById = (req, res) => {
     });
 };
 
+
 exports.validateRegister = (req, res, next) => {
-  // console.log('the request body',req.body);
-  req.sanitizeBody("username");
-  req.sanitizeBody("firstName");
-  req.sanitizeBody("lastName");
-  req.sanitizeBody("city");
+  debugger;
+
+  sanitizeBody("username");
+  sanitizeBody("firstName");
+  sanitizeBody("lastName");
+  sanitizeBody("city");
+  sanitizeBody("email");
+  sanitizeBody("confirmEmail");
+  sanitizeBody("password");
+  sanitizeBody("confirmPassword");
 
   req.checkBody("username", "You must supply a username!").notEmpty();
-  req.checkBody("firstName", "You must supply a First Name!").notEmpty();
-  req.checkBody("lastName", "You must supply a Last Name!").notEmpty();
+  req.checkBody("firstName", "You must supply a first name!").notEmpty();
+  req.checkBody("lastName", "You must supply a last name!").notEmpty();
   req.checkBody("city", "You must supply a city!").notEmpty();
-
-  req
-    .checkBody("confirmEmail", "Oops! Your Emails do not match")
-    .equals(req.body.email);
-
   req.checkBody("email", "That Email is not valid!").isEmail();
-  // add more checks here
-  req.sanitizeBody("email").normalizeEmail({
-    remove_dots: false,
-    remove_extension: false,
-    gmail_remove_subaddress: false,
-  });
-  req.checkBody("password", "Password cannot be blank!").notEmpty();
-  req
-    .checkBody("confirmPassword", "Confirmed Password cannot be blank!")
-    .notEmpty();
-  req
-    .checkBody("confirmPassword", "Oops! Your passwords do not match")
-    .equals(req.body.password);
-
+  req.checkBody("confirmEmail", "Your emails do not match!").equals(req.body.email);
+  req.checkBody("password", "Password Cannot be Blank!").notEmpty();
+  req.checkBody("confirmPassword", "Confirmed Password cannot be blank!").notEmpty();
+  req.checkBody("confirmPassword", "Oops! Your passwords do not match").equals(req.body.password);
+  
   const errors = req.validationErrors();
   if (errors) {
-    console.log(errors);
-    return; // stop the fn from running
+    res.status(400).json({ errors: errors });
+    return;
   }
   next(); // there were no errors!
 };
 
+
 exports.register = async (req, res, next) => {
-  console.log("registering user");
+  debugger;
   const user = new User({
     username: req.body.username,
     email: req.body.email,
@@ -69,12 +62,14 @@ exports.register = async (req, res, next) => {
 
   try {
     const registeredUser = await User.register(user, req.body.password);
-    console.log("user registered");
     // Handle successful registration
     res.status(200).json({ user: registeredUser });
+    console.log(registeredUser);
+    debugger;
   } catch (err) {
     // Handle registration error
-    console.log(err);
+    console.log("err", err);
     res.status(500).json({ error: err.message });
+
   }
 };

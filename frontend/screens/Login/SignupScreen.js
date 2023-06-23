@@ -37,17 +37,10 @@ const SignupScreen = ({ navigation }) => {
       return response;
     } catch (error) {
       console.log("HAS ERROR:", error);
-      // Alert.alert('Authentication failed',
-      //   "Could not register user. Please check your inputs and try again.",
-      // );
     }
   };
 
-  // if (isAuthenticating) {
-  //   return <LoadingOverlay message="Creating User"/>
-  // } else {
   return <AuthContent onAuthenticate={signUpHandler} isLogin={false} />;
-  //  }
 };
 
 export default SignupScreen;
