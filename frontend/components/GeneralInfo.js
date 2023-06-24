@@ -5,9 +5,6 @@ import Colors from "../constants/colors"
 
 
 const GeneralInfo = props => {
-    //console.log("selected Hike", props.selectedHike)
-    //console.log("selected Route", props.selectedRoute)
-
     const { selectedHike, selectedRoute } = props
 
     var dateTime = new Date(selectedHike.eventTime);

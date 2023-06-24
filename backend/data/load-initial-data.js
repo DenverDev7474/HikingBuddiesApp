@@ -12,8 +12,7 @@ const Route = require('../models/route');
 
 const mountains = JSON.parse(fs.readFileSync(__dirname + '/mountainsData.json', 'utf-8'));
 const routes = JSON.parse(fs.readFileSync(__dirname + '/routesData.json', 'utf-8'));
-console.log(mountains);
-console.log(routes);
+
 
 
 async function deleteData() {

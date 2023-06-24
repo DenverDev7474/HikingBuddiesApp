@@ -9,7 +9,7 @@ router.post('/login', authController.login);
 router.get('/user/:id', userController.getUserById);
 
 router.post('/register', 
-    // userController.validateRegister, 
+    userController.validateRegister, 
     userController.register, 
 );  
 
