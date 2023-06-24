@@ -7,6 +7,7 @@ import AuthForm from './AuthForm';
 
 
 function AuthContent({ isLogin, onAuthenticate }) {
+
   const navigation = useNavigation();
 
   const [credentialsInvalid, setCredentialsInvalid] = useState({
