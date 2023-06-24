@@ -31,7 +31,6 @@ const SignupScreen = ({ navigation }) => {
         password,
       });
 
-      console.log("response", result);
       setResponse(response);
       setIsAuthenticating(false);
       return response;

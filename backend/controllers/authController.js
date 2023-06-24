@@ -3,8 +3,6 @@ const mongoose = require("mongoose");
 const User = mongoose.model("User");
 
 exports.login = (req, res, next) => {
-  console.log("the request body", req.body);
-
   const passlogin = passportAuth.authenticate("local", (error, user) => {
     const login = req.logIn(user, (error) => {
       if (error) {
@@ -12,11 +10,8 @@ exports.login = (req, res, next) => {
       }
       return res.json({ user: user });
     });
-    console.log("login", login);
     return login;
   });
-
-  console.log("passlogin", passlogin);
 
   res.json(passlogin);
 

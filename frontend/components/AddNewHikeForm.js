@@ -20,7 +20,6 @@ export default function AddNewHikeForm(props) {
     const [ mountainId, setMountainId ] = useState('');
     const [date, setDate] = useState(new Date())
 
-    console.log('props', props)
 
     const { data, error, isLoading, isFetching, isSuccess } = useGetAllMountainsQuery();
     

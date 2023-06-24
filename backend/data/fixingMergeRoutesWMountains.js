@@ -13,9 +13,6 @@ const mountain = require('../models/mountain');
 
 const routes = JSON.parse(fs.readFileSync(__dirname + '/routesData.json', 'utf-8'));
 
-console.log(routes);
-
-
 routes.forEach(routeItem => {
     const Id = routeItem.mountainId;
     // console.log(Id);

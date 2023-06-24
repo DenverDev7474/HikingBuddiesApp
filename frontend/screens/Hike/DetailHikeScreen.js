@@ -28,9 +28,6 @@ const DetailHikeScreen = ({ route, navigation }) => {
     const { data: selectedRoute } = useGetRouteByIdQuery(routeId);
     // const { data: users } =  useGetUsersByIdQuery();
     const { data: selectedHost } = useGetUserByIdQuery(hostId);
-
-    // console.log(selectedRoute)
-    // console.log(selectedHike)
     
     return (
         <SafeAreaView style={styles.container}>

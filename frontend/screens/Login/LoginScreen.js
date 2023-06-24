@@ -12,6 +12,7 @@ function LoginScreen() {
     try {
       const payload = await loginUser({ username, password });
       console.log("payload", payload);
+      payload && setIsAuthenticating(true);
       return payload;
     } catch (error) {
       console.log("rejected", error);
