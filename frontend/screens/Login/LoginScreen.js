@@ -1,33 +1,43 @@
-import AuthContent from "../../components/AuthContent";
-import { useState } from "react";
-import { useLoginUserMutation } from "../../common/services/user.service";
-import LoadingOverlay from "../../components/LoadingOverlay";
-import { Alert } from "react-native";
+import AuthContent from '../../components/AuthContent';
+import {useState, useEffect} from 'react';
+import {useLoginUserMutation} from '../../common/services/user.service';
+import {Alert} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 function LoginScreen() {
-  const [isAuthenticating, setIsAuthenticating] = useState(false);
-  const [loginUser] = useLoginUserMutation();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loginUser, {loading, error}] = useLoginUserMutation();
+  const navigation = useNavigation();
 
-  async function loginHandler({ username, password }) {
-    try {
-      const payload = await loginUser({ username, password });
-      console.log("payload", payload);
-      payload && setIsAuthenticating(true);
-      return payload;
-    } catch (error) {
-      console.log("rejected", error);
+  useEffect(() => {
+    if (error) {
       Alert.alert(
-        "Authentication failed Error",
-        "Please check your username and password and try again."
+        'Authentication failed',
+        `Error: ${error.message}. Please try again.`,
       );
+    } else if (isAuthenticated) {
+      navigation.replace('Main');
     }
-  }
+  }, [isAuthenticated, error]);
 
-  if (isAuthenticating) {
-    return <LoadingOverlay message="Loggin you in" />;
-  }
+  const handleLogin = async ({username, password}) => {
+    try {
+      const loginResponse = await loginUser({username, password});
+      if (loginResponse.data.user) {
+        setIsAuthenticated(true);
+      }
+      return loginResponse;
+    } catch (error) {
+      return null;
+    }
+  };
 
-  return <AuthContent isLogin onAuthenticate={loginHandler} />;
+  return (
+    <>
+      {loading && <LoadingOverlay message="Logging in..." />}
+      <AuthContent isLogin onAuthenticate={handleLogin} />
+    </>
+  );
 }
 
 export default LoginScreen;
