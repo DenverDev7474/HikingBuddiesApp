@@ -23,6 +23,7 @@ function LoginScreen() {
   const handleLogin = async ({username, password}) => {
     try {
       const loginResponse = await loginUser({username, password});
+      console.log('loginResponse', loginResponse)
       if (loginResponse.data.user) {
         setIsAuthenticated(true);
       }
