@@ -32,7 +32,11 @@ function AuthStack() {
     >
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Signup" component={SignupScreen} />
-      <Stack.Screen name="Main" component={MainScreen} />
+      <Stack.Screen name="Main" component={MainScreen} 
+        options={{
+          headerShown: false,
+        }}  
+      />
     </Stack.Navigator>
   );
 }

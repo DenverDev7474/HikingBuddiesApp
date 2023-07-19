@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import Button from './Button';
@@ -14,6 +14,23 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
   const [enteredPassword, setEnteredPassword] = useState('');
   const [enteredConfirmPassword, setEnteredConfirmPassword] = useState('');
 
+  useEffect(() => {
+    if(isLogin) {
+      setEnteredUsername('');
+      setEnteredPassword('');
+    } else {
+      setEnteredUsername('');
+      setEnteredFirstName('');
+      setEnteredLastName('');
+      setEnteredCity('');
+      setEnteredEmail('');
+      setEnteredConfirmEmail('');
+      setEnteredPassword('');
+      setEnteredConfirmPassword('');
+    }
+  }, [isLogin]);
+
+
   const {
     username: usernameIsInvalid,
     firstName: firstNameIsInvalid,
@@ -25,7 +42,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
     confirmPassword: passwordsDontMatch,
   } = credentialsInvalid;
 
-  function updateInputValueHandler(inputType, enteredValue) {
+  const updateInputValueHandler = (inputType, enteredValue) => {
     switch (inputType) {
       case 'username':
         setEnteredUsername(enteredValue);
@@ -54,7 +71,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
     }
   }
 
-  function submitHandler() {
+  const submitHandler = () => {
     onSubmit({
       firstName: enteredFirstName,
       lastName: enteredLastName,

@@ -10,7 +10,7 @@ router.get('/user/:id', userController.getUserById);
 
 router.post('/register', 
     userController.validateRegister, 
-    userController.register, 
+    userController.register,
 );  
 
 router.get('/logout', authController.logout);

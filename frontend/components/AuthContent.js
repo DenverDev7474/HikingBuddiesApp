@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native'
 
@@ -6,8 +6,7 @@ import FlatButton from './FlatButton';
 import AuthForm from './AuthForm';
 
 
-function AuthContent({ isLogin, onAuthenticate }) {
-
+function AuthContent({ isLogin, onSubmit }) {
   const navigation = useNavigation();
 
   const [credentialsInvalid, setCredentialsInvalid] = useState({
@@ -21,7 +20,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
     confirmPassword: false,
   });
 
-  function switchAuthModeHandler() {
+  const switchAuthModeHandler = () => {
     if (isLogin) {
       navigation.replace('Signup');
     } else {
@@ -29,7 +28,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
     }
   }
 
-  function submitHandler(credentials) {
+  const submitHandler = (credentials) => {
     let { username, firstName, lastName, city, email, confirmEmail, password, confirmPassword } = credentials;
 
     username = username.trim();
@@ -61,7 +60,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
           });
         } 
         else {
-            onAuthenticate({ username, password });
+            onSubmit({ username, password });
         }
     } else {
         if (usernameIsInvalid || firstNameIsInvalid || lastNameIsInvalid || cityIsInvalid || emailIsInvalid || passwordIsInvalid || !emailIsValid || !emailsAreEqual || !passwordsAreEqual) {
@@ -77,8 +76,8 @@ function AuthContent({ isLogin, onAuthenticate }) {
           });
         }
         else {
-            onAuthenticate({ username, firstName, lastName, city, confirmEmail, email, password, confirmPassword });
-        }
+              onSubmit({ username, firstName, lastName, city, confirmEmail, email, password, confirmPassword });
+        } 
     }
   }
 

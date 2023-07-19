@@ -1,41 +1,45 @@
 import AuthContent from '../../components/AuthContent';
-import {useState, useEffect} from 'react';
+import {useEffect} from 'react';
 import {useLoginUserMutation} from '../../common/services/user.service';
 import {Alert} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import LoadingOverlay from '../../components/LoadingOverlay';
 
-function LoginScreen() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loginUser, {loading, error}] = useLoginUserMutation();
+const LoginScreen = () => {
+  const [loginUser, {data, error, isLoading, isSuccess}] = useLoginUserMutation();
   const navigation = useNavigation();
 
-  useEffect(() => {
-    if (error) {
-      Alert.alert(
-        'Authentication failed',
-        `Error: ${error.message}. Please try again.`,
-      );
-    } else if (isAuthenticated) {
-      navigation.replace('Main');
-    }
-  }, [isAuthenticated, error]);
+  console.log('isLoading', isLoading);
 
-  const handleLogin = async ({username, password}) => {
-    try {
-      const loginResponse = await loginUser({username, password});
-      if (loginResponse.data.user) {
-        setIsAuthenticated(true);
-      }
-      return loginResponse;
-    } catch (error) {
-      return null;
+const handleLogin = ({username, password}) => {
+  loginUser({username, password});
+};
+
+
+  useEffect(() => {
+    if (isSuccess) {
+      console.log('isSuccess', isSuccess);
+      return navigation.replace('Main');
+    } else if (error) {
+      console.log('error', error);
+      Alert.alert(
+        'Login Error',
+        error.message,
+        [{text: 'OK'}],
+      );
     }
-  };
+  }, [isSuccess, error, data]);
+
+
 
   return (
-    <>
-      {loading && <LoadingOverlay message="Logging in..." />}
-      <AuthContent isLogin onAuthenticate={handleLogin} />
+    <>   
+      { isLoading && <LoadingOverlay /> ||
+      <AuthContent 
+        isLogin={true}
+        onSubmit={handleLogin}
+      />
+      }
     </>
   );
 }
